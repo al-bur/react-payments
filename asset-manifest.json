@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "//al-bur.github.io/react-payments/static/css/main.f226adc4.css",
-    "main.js": "//al-bur.github.io/react-payments/static/js/main.4911c29b.js",
-    "index.html": "//al-bur.github.io/react-payments/index.html",
-    "static/media/arrow.svg": "//al-bur.github.io/react-payments/static/media/arrow.c5bfeb12d0266ebb8e17ef86e4ab5790.svg",
-    "main.f226adc4.css.map": "//al-bur.github.io/react-payments/static/css/main.f226adc4.css.map",
-    "main.4911c29b.js.map": "//al-bur.github.io/react-payments/static/js/main.4911c29b.js.map"
+    "main.css": "/react-payments/static/css/main.f226adc4.css",
+    "main.js": "/react-payments/static/js/main.cc95c7c5.js",
+    "index.html": "/react-payments/index.html",
+    "static/media/arrow.svg": "/react-payments/static/media/arrow.c5bfeb12d0266ebb8e17ef86e4ab5790.svg",
+    "main.f226adc4.css.map": "/react-payments/static/css/main.f226adc4.css.map",
+    "main.cc95c7c5.js.map": "/react-payments/static/js/main.cc95c7c5.js.map"
   },
   "entrypoints": [
     "static/css/main.f226adc4.css",
-    "static/js/main.4911c29b.js"
+    "static/js/main.cc95c7c5.js"
   ]
 }
