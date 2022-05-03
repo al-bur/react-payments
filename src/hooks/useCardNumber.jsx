@@ -6,41 +6,40 @@ export default function useCardNumber(initialValue) {
   const [cardNumber, setCardNumber] = useState(initialValue);
   const [encryptedCardNumber, setEncryptedCardNumber] = useState(initialValue);
 
-  const processCardNumbers = data => {
-    if (data === null) {
-      return setCardNumber(prevNumbers => prevNumbers.slice(0, -1));
-    }
+  const getNumbers = data => {
+    if (data === null) return cardNumber.slice(0, -1);
+    if (!data.match(/[\d]/g)) return cardNumber;
+    if (cardNumber === '') return data;
 
-    if (data?.match(/[\d]/g)) {
-      return setCardNumber(prevNumbers => {
-        if (prevNumbers === undefined) return data;
-        return prevNumbers + data;
-      });
-    }
+    return cardNumber + data;
   };
 
-  const processEncryptedNumbers = numbers => {
+  const getEncrytedNumbers = numbers => {
     let encryptedNumbers = numbers;
+
     if (numbers.length > 8) {
       encryptedNumbers = numbers.slice(0, 8) + '•'.repeat(numbers.length - 8);
     }
 
-    // 정규식: 숫자와 • 4개 단위마다 '-'를 넣어준다.
-    setEncryptedCardNumber(
-      encryptedNumbers.match(/[\d•]{1,4}/g)?.join('-') ?? initialValue
-    );
+    return encryptedNumbers.match(/[\d•]{1,4}/g)?.join('-') ?? initialValue;
   };
+  // TODO: refactor
+  const handler = useCallback(
+    e => {
+      const { value } = e.target;
+      const trimmedValue = value.replaceAll('-', '');
+      const { data } = e.nativeEvent;
 
-  const handler = useCallback(e => {
-    const { value } = e.target;
-    const { data } = e.nativeEvent;
-    const numbers = value.replaceAll('-', '');
+      if (trimmedValue.length > RULE.CARD_NUMBER_MAX_LENGTH) return;
 
-    if (numbers.length > RULE.CARD_NUMBER_MAX_LENGTH) return;
+      const numbers = getNumbers(data);
+      const encryptedNumbers = getEncrytedNumbers(numbers);
 
-    processCardNumbers(data);
-    processEncryptedNumbers(numbers);
-  }, []);
+      setCardNumber(numbers);
+      setEncryptedCardNumber(encryptedNumbers);
+    },
+    [cardNumber]
+  );
 
   return [cardNumber, handler, encryptedCardNumber];
 }
