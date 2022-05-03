@@ -1,5 +1,7 @@
 import { memo } from 'react';
 
+import GlobalStyle from './GlobalStyle';
+
 import styled from 'styled-components';
 
 import useCardNumber from './hooks/useCardNumber';
@@ -84,94 +86,97 @@ function App() {
   ];
 
   return (
-    <Styled.Page>
-      <Styled.Header>
-        <Button size="small">
-          <Arrow />
-        </Button>
-        <Styled.Title>카드 추가</Styled.Title>
-      </Styled.Header>
-      <Styled.Card
-        bgColor="#ADD8E6"
-        size="medium"
-        name={cardOwnerName}
-        number={encryptedCardNumber}
-        validDate={validDate}
-      />
-      <Styled.InputGroup>
-        <div>
-          <Input
-            description="카드 번호"
-            value={encryptedCardNumber}
-            onChangeFunc={setCardNumber}
-          />
-        </div>
-        <div>
-          <Input
-            description="만료일"
-            placeholder="MM / YY"
-            width="137px"
-            value={validDate}
-            onChangeFunc={setValidDate}
-          />
-        </div>
-        <div>
-          <Styled.CardOwnerNameLength>
-            {cardOwnerName.length}/{RULE.CARD_OWNER_NAME_MAX_LENGTH}
-          </Styled.CardOwnerNameLength>
-          <Input
-            description="카드 소유자 이름 (선택)"
-            placeholder="카드에 표시된 이름과 동일하게 입력하세요."
-            value={cardOwnerName}
-            onChangeFunc={setCardOwnerName}
-          />
-        </div>
-        <div>
-          <Input
-            description="보안 코드(CVC/CVV)"
-            type="password"
-            width="84px"
-            value={CVC}
-            onChangeFunc={setCVC}
-          />
-          <Button
-            border="1px solid #BABABA"
-            color="#969696"
-            margin={{ l: '11px' }}
-            shape="circle"
-            size="small"
-            onClickFunc={toggleToolTip}
-          >
-            ?
+    <>
+      <GlobalStyle />
+      <Styled.Page>
+        <Styled.Header>
+          <Button size="small">
+            <Arrow />
           </Button>
-          <Tooltip visible={isToolTipOpen} />
-        </div>
-        <div>
-          <Input
-            description="카드 비밀번호"
-            margin={{ r: '7px' }}
-            type="password"
-            width="43px"
-            value={firstPassword}
-            onChangeFunc={setFirstPassword}
-          />
-          <Input
-            margin={{ r: '26px' }}
-            type="password"
-            width="43px"
-            value={secondPassword}
-            onChangeFunc={setSecondPassword}
-          />
-          <Styled.Bullet>•</Styled.Bullet>
-          <Styled.Bullet>•</Styled.Bullet>
-        </div>
-      </Styled.InputGroup>
-      {requiredList.every(value => value !== '') && (
-        <Styled.NextButton color="#04C09E" fontWeight="bold">
-          다음
-        </Styled.NextButton>
-      )}
-    </Styled.Page>
+          <Styled.Title>카드 추가</Styled.Title>
+        </Styled.Header>
+        <Styled.Card
+          bgColor="#ADD8E6"
+          size="medium"
+          name={cardOwnerName}
+          number={encryptedCardNumber}
+          validDate={validDate}
+        />
+        <Styled.InputGroup>
+          <div>
+            <Input
+              description="카드 번호"
+              value={encryptedCardNumber}
+              onChangeFunc={setCardNumber}
+            />
+          </div>
+          <div>
+            <Input
+              description="만료일"
+              placeholder="MM / YY"
+              width="137px"
+              value={validDate}
+              onChangeFunc={setValidDate}
+            />
+          </div>
+          <div>
+            <Styled.CardOwnerNameLength>
+              {cardOwnerName.length}/{RULE.CARD_OWNER_NAME_MAX_LENGTH}
+            </Styled.CardOwnerNameLength>
+            <Input
+              description="카드 소유자 이름 (선택)"
+              placeholder="카드에 표시된 이름과 동일하게 입력하세요."
+              value={cardOwnerName}
+              onChangeFunc={setCardOwnerName}
+            />
+          </div>
+          <div>
+            <Input
+              description="보안 코드(CVC/CVV)"
+              type="password"
+              width="84px"
+              value={CVC}
+              onChangeFunc={setCVC}
+            />
+            <Button
+              border="1px solid #BABABA"
+              color="#969696"
+              margin={{ l: '11px' }}
+              shape="circle"
+              size="small"
+              onClickFunc={toggleToolTip}
+            >
+              ?
+            </Button>
+            <Tooltip visible={isToolTipOpen} />
+          </div>
+          <div>
+            <Input
+              description="카드 비밀번호"
+              margin={{ r: '7px' }}
+              type="password"
+              width="43px"
+              value={firstPassword}
+              onChangeFunc={setFirstPassword}
+            />
+            <Input
+              margin={{ r: '26px' }}
+              type="password"
+              width="43px"
+              value={secondPassword}
+              onChangeFunc={setSecondPassword}
+            />
+            <Styled.Bullet>•</Styled.Bullet>
+            <Styled.Bullet>•</Styled.Bullet>
+          </div>
+        </Styled.InputGroup>
+        {requiredList.every(value => value !== '') && (
+          <Styled.NextButton color="#04C09E" fontWeight="bold">
+            다음
+          </Styled.NextButton>
+        )}
+      </Styled.Page>
+    </>
   );
 }
 
