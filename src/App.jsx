@@ -86,7 +86,9 @@ function App() {
   return (
     <Styled.Page>
       <Styled.Header>
-        <Button size="small" content={<Arrow />} />
+        <Button size="small">
+          <Arrow />
+        </Button>
         <Styled.Title>카드 추가</Styled.Title>
       </Styled.Header>
       <Styled.Card
@@ -135,12 +137,13 @@ function App() {
           <Button
             border="1px solid #BABABA"
             color="#969696"
-            content="?"
             margin={{ l: '11px' }}
             shape="circle"
             size="small"
             onClickFunc={toggleToolTip}
-          />
+          >
+            ?
+          </Button>
           <Tooltip visible={isToolTipOpen} />
         </div>
         <div>
@@ -164,7 +167,9 @@ function App() {
         </div>
       </Styled.InputGroup>
       {requiredList.every(value => value !== '') && (
-        <Styled.NextButton color="#04C09E" content="다음" fontWeight="bold" />
+        <Styled.NextButton color="#04C09E" fontWeight="bold">
+          다음
+        </Styled.NextButton>
       )}
     </Styled.Page>
   );
