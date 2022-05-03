@@ -6,14 +6,21 @@ export default function useCardNumber(initialValue) {
   const [cardNumber, setCardNumber] = useState(initialValue);
   const [encryptedCardNumber, setEncryptedCardNumber] = useState(initialValue);
 
-  const handler = useCallback(({ target: { value } }) => {
-    const numbers = value.replaceAll('-', '');
-    if (numbers.length > RULE.CARD_NUMBER_MAX_LENGTH) return;
+  const processCardNumbers = data => {
+    if (data === null) {
+      return setCardNumber(prevNumbers => prevNumbers.slice(0, -1));
+    }
 
-    setCardNumber(numbers);
+    if (data?.match(/[\d]/g)) {
+      return setCardNumber(prevNumbers => {
+        if (prevNumbers === undefined) return data;
+        return prevNumbers + data;
+      });
+    }
+  };
 
+  const processEncryptedNumbers = numbers => {
     let encryptedNumbers = numbers;
-
     if (numbers.length > 8) {
       encryptedNumbers = numbers.slice(0, 8) + '•'.repeat(numbers.length - 8);
     }
@@ -22,6 +29,17 @@ export default function useCardNumber(initialValue) {
     setEncryptedCardNumber(
       encryptedNumbers.match(/[\d•]{1,4}/g)?.join('-') ?? initialValue
     );
+  };
+
+  const handler = useCallback(e => {
+    const { value } = e.target;
+    const { data } = e.nativeEvent;
+    const numbers = value.replaceAll('-', '');
+
+    if (numbers.length > RULE.CARD_NUMBER_MAX_LENGTH) return;
+
+    processCardNumbers(data);
+    processEncryptedNumbers(numbers);
   }, []);
 
   return [cardNumber, handler, encryptedCardNumber];
