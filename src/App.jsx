@@ -77,8 +77,6 @@ function App() {
   const [secondPassword, setSecondPassword] = useCardPassword('');
   const [isToolTipOpen, toggleToolTip] = useToggle(false);
 
-  console.log(cardNumber, encryptedCardNumber, 'outside');
-
   const requiredList = [
     cardNumber,
     validDate,
