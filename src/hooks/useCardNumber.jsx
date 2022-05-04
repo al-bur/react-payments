@@ -7,52 +7,36 @@ export default function useCardNumber(initialValue) {
   const [cardNumber, setCardNumber] = useState(initialValue);
   const [encryptedCardNumber, setEncryptedCardNumber] = useState(initialValue);
 
-  const getCursorPosition = selectionStart => {
-    if (0 <= selectionStart && selectionStart <= 4) {
-      return 0;
-    } else if (4 < selectionStart && selectionStart <= 9) {
-      return 1;
-    } else if (9 < selectionStart && selectionStart <= 14) {
-      return 2;
-    } else if (14 < selectionStart && selectionStart <= 19) {
-      return 3;
-    }
-  };
+  const getComputedValue = (selectionStart, type = 'delete') => {
+    const auxilaryNum = type === 'add' && 1;
 
-  const getAdditionCursorInfo2 = selectionStart => {
-    if (0 <= selectionStart && selectionStart <= 5) {
-      return 0;
-    } else if (5 < selectionStart && selectionStart <= 10) {
+    if (0 <= selectionStart && selectionStart <= 4 + auxilaryNum) return 0;
+    if (4 + auxilaryNum < selectionStart && selectionStart <= 9 + auxilaryNum)
       return 1;
-    } else if (10 < selectionStart && selectionStart <= 15) {
+    if (9 + auxilaryNum < selectionStart && selectionStart <= 14 + auxilaryNum)
       return 2;
-    } else if (15 < selectionStart && selectionStart <= 19) {
-      return 3;
-    }
+    if (14 + auxilaryNum < selectionStart && selectionStart <= 19) return 3;
   };
 
   const getNumbers = (data, selectionStart) => {
-    const temp = getCursorPosition(selectionStart);
-    const plus = getAdditionCursorInfo2(selectionStart);
-
-    console.log(selectionStart, 'selectionStart');
-    console.log(cardNumber, 'cardNumber');
     // TODO: 값 삭제시 커서 맨 끝으로 가는 거 수정하기
-    if (data === null)
+    if (data === null) {
+      const computedValue = getComputedValue(selectionStart);
       return (
-        cardNumber.slice(0, selectionStart - temp) +
-        cardNumber.slice(selectionStart - temp + 1)
+        cardNumber.slice(0, selectionStart - computedValue) +
+        cardNumber.slice(selectionStart - computedValue + 1)
       );
+    }
 
     if (!data.match(/[\d]/g)) return cardNumber;
 
-    console.log(cardNumber.slice(0, selectionStart - temp - 1), 'cardNumber앞');
-    console.log(cardNumber.slice(selectionStart - temp - 1), 'cardNumber뒤');
+    const computedValue = getComputedValue(selectionStart, 'add');
+
     return (
       // -1을 해주는 이유는, onchage가 일어나면 이미 e.targe.value는 추가된 값이 들어오고, 당연히 selectionStart도 하나 늘어난 채로 들어오게 된다. 이로 인해, 추가할때는 -1을 해줘야함
-      cardNumber.slice(0, selectionStart - plus - 1) +
+      cardNumber.slice(0, selectionStart - computedValue - 1) +
       data +
-      cardNumber.slice(selectionStart - plus - 1)
+      cardNumber.slice(selectionStart - computedValue - 1)
     );
   };
 
@@ -70,7 +54,6 @@ export default function useCardNumber(initialValue) {
     e => {
       const { value, selectionStart } = e.target;
       const trimmedValue = value.replaceAll('-', '');
-      // console.log(value);
 
       if (trimmedValue.length > RULE.CARD_NUMBER_MAX_LENGTH) return;
 
