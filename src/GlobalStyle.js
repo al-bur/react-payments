@@ -7,6 +7,11 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Roboto', 'Malgun Gothic';
     justify-content: center;
   }
+
+  * {
+    margin: 0px;
+  }
+
   
   ::placeholder {
     font-family: 'Roboto', 'Malgun Gothic';
