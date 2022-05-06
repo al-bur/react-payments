@@ -99,7 +99,7 @@ function App() {
   const [firstPassword, setFirstPassword] = useCardPassword('');
   const [secondPassword, setSecondPassword] = useCardPassword('');
   const [isToolTipOpen, toggleToolTip] = useReducer(visible => !visible, false);
-  const [isCardDesignModalOpen, toggleCardDesignModal] = useReducer(
+  const [isCardPickModal, toggleCardPickModal] = useReducer(
     visible => !visible,
     false
   );
@@ -131,7 +131,7 @@ function App() {
           size="medium"
           name={cardOwnerName}
           number={encryptedCardNumber}
-          onClickFunc={toggleCardDesignModal}
+          onClickFunc={toggleCardPickModal}
           title={cardKind.title}
           validDate={validDate}
         />
@@ -209,8 +209,11 @@ function App() {
           </Styled.NextButton>
         )}
       </Styled.Page>
-      {isCardDesignModalOpen && (
-        <CardPickModal onClickFunc={toggleCardDesignModal} />
+      {isCardPickModal && (
+        <CardPickModal
+          setCardKind={setCardKind}
+          toggleCardPickModal={toggleCardPickModal}
+        />
       )}
     </>
   );

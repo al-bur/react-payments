@@ -1,8 +1,6 @@
-import { memo, useCallback } from 'react';
-
 import styled from 'styled-components';
 
-import Button from './common/Button';
+import Button from 'components/common/Button';
 
 const Styled = {
   Root: styled.div`
@@ -19,8 +17,6 @@ const Styled = {
 
 // TODO: 성능 최적화 영상 찍으면서 비교해보기
 function CardColorButton({ buttonBgColor, cardTitle, onClickFunc }) {
-  // const { setCardColor, setCardTitle } = onClickFunc;
-
   const setCardKind = () => {
     onClickFunc({ type: 'SET_CARD_COLOR', color: buttonBgColor });
     onClickFunc({ type: 'SET_CARD_TITLE', title: cardTitle });

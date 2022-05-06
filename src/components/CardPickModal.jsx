@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-import CardColorButton from './CardColorButton';
+import Button from 'components/common/Button';
+import CardColorButton from 'components/CardColorButton';
 
 const cardPresets = [
   {
@@ -73,11 +74,11 @@ const Styled = {
   `,
 };
 
-export default function Modal({ onClickFunc }) {
+function CardPickModal({ setCardKind, toggleCardPickModal }) {
   return (
     <>
       <Styled.Modal>
-        <Styled.CloseButton onClickFunc={toggleCardDesignModal}>
+        <Styled.CloseButton onClickFunc={toggleCardPickModal}>
           X
         </Styled.CloseButton>
         {cardPresets.map(({ color, title }) => (
@@ -89,7 +90,9 @@ export default function Modal({ onClickFunc }) {
           />
         ))}
       </Styled.Modal>
-      <Styled.Dimmed onClick={onClickFunc} />
+      <Styled.Dimmed onClick={toggleCardPickModal} />
     </>
   );
 }
+
+export default CardPickModal;
