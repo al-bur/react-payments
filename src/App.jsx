@@ -1,25 +1,25 @@
 import { memo, useReducer } from 'react';
 
-import GlobalStyle from './GlobalStyle';
+import GlobalStyle from 'GlobalStyle';
 
 import styled from 'styled-components';
 
-import useCardNumber from './hooks/useCardNumber';
-import useValidDate from './hooks/useValidDate';
-import useCardOwnerName from './hooks/useCardOwnerName';
-import useCVC from './hooks/useCVC';
-import useCardPassword from './hooks/useCardPassword';
+import useCardNumber from 'hooks/useCardNumber';
+import useValidDate from 'hooks/useValidDate';
+import useCardOwnerName from 'hooks/useCardOwnerName';
+import useCVC from 'hooks/useCVC';
+import useCardPassword from 'hooks/useCardPassword';
 
-import Button from './components/common/Button';
-import Card from './components/Card';
-import CardColorButton from './components/CardColorButton';
-import CVCTooltip from './components/CVCTooltip';
-import Input from './components/common/Input';
-import CardPickModal from './components/CardPickModal';
+import Button from 'components/common/Button';
+import Card from 'components/Card';
+import CVCTooltip from 'components/CVCTooltip';
+import Input from 'components/common/Input';
+import CardPickModal from 'components/CardPickModal';
+import ModalPortal from 'components/common/ModalPortal';
 
-import { ReactComponent as Arrow } from './assets/arrow.svg';
+import { ReactComponent as Arrow } from 'assets/arrow.svg';
 
-import { RULE } from './constants';
+import { RULE } from 'constants';
 
 function cardKindReducer(state, action) {
   switch (action.type) {
@@ -208,13 +208,15 @@ function App() {
             다음
           </Styled.NextButton>
         )}
+        {isCardPickModal && (
+          <ModalPortal>
+            <CardPickModal
+              setCardKind={setCardKind}
+              toggleCardPickModal={toggleCardPickModal}
+            />
+          </ModalPortal>
+        )}
       </Styled.Page>
-      {isCardPickModal && (
-        <CardPickModal
-          setCardKind={setCardKind}
-          toggleCardPickModal={toggleCardPickModal}
-        />
-      )}
     </>
   );
 }

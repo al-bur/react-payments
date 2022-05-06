@@ -12,6 +12,10 @@ const GlobalStyle = createGlobalStyle`
     margin: 0px;
   }
 
+  #modal {
+    position: absolute;
+  }
+
   
   ::placeholder {
     font-family: 'Roboto', 'Malgun Gothic';

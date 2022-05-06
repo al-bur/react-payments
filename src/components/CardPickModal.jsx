@@ -49,10 +49,7 @@ const Styled = {
   Dimmed: styled.div`
     background: #2725253d;
     height: 757px;
-    position: absolute;
-    top: 0px;
     width: 400px;
-    z-index: 90;
   `,
 
   Modal: styled.div`
@@ -68,9 +65,8 @@ const Styled = {
     justify-content: center;
     padding: 30px;
     position: absolute;
-    top: calc(757px / 3 * 2); // 2는 3에서 1을 빼준 값, 공통화할 때 활용해보자
+    top: calc(757px / 3 * 2);
     width: 400px;
-    z-index: 100;
   `,
 };
 
