@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useReducer } from 'react';
 
 import GlobalStyle from './GlobalStyle';
 
@@ -9,16 +9,32 @@ import useValidDate from './hooks/useValidDate';
 import useCardOwnerName from './hooks/useCardOwnerName';
 import useCVC from './hooks/useCVC';
 import useCardPassword from './hooks/useCardPassword';
-import useToggle from './hooks/useToggle';
 
-import Tooltip from './components/Tooltip';
 import Button from './components/common/Button';
-import Card from './components/common/Card';
+import Card from './components/Card';
+import CardColorButton from './components/CardColorButton';
+import CVCTooltip from './components/CVCTooltip';
 import Input from './components/common/Input';
+import CardPickModal from './components/CardPickModal';
 
 import { ReactComponent as Arrow } from './assets/arrow.svg';
 
 import { RULE } from './constants';
+
+function cardKindReducer(state, action) {
+  switch (action.type) {
+    case 'SET_CARD_COLOR':
+      return {
+        ...state,
+        color: action.color,
+      };
+    case 'SET_CARD_TITLE':
+      return {
+        ...state,
+        title: action.title,
+      };
+  }
+}
 
 const Styled = {
   Page: styled.form`
@@ -66,6 +82,13 @@ const Styled = {
   NextButton: styled(Button)`
     align-self: end;
   `,
+
+  CloseButton: styled(Button)`
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+  `,
 };
 
 function App() {
@@ -75,7 +98,15 @@ function App() {
   const [CVC, setCVC] = useCVC('');
   const [firstPassword, setFirstPassword] = useCardPassword('');
   const [secondPassword, setSecondPassword] = useCardPassword('');
-  const [isToolTipOpen, toggleToolTip] = useToggle(false);
+  const [isToolTipOpen, toggleToolTip] = useReducer(visible => !visible, false);
+  const [isCardDesignModalOpen, toggleCardDesignModal] = useReducer(
+    visible => !visible,
+    false
+  );
+  const [cardKind, setCardKind] = useReducer(cardKindReducer, {
+    color: '#ADD8E6',
+    title: '공원 카드',
+  });
 
   const requiredList = [
     cardNumber,
@@ -96,10 +127,12 @@ function App() {
           <Styled.Title>카드 추가</Styled.Title>
         </Styled.Header>
         <Styled.Card
-          bgColor="#ADD8E6"
+          bgColor={cardKind.color}
           size="medium"
           name={cardOwnerName}
           number={encryptedCardNumber}
+          onClickFunc={toggleCardDesignModal}
+          title={cardKind.title}
           validDate={validDate}
         />
         <Styled.InputGroup>
@@ -148,7 +181,7 @@ function App() {
             >
               ?
             </Button>
-            <Tooltip visible={isToolTipOpen} />
+            <CVCTooltip visible={isToolTipOpen} />
           </div>
           <div>
             <Input
@@ -176,6 +209,9 @@ function App() {
           </Styled.NextButton>
         )}
       </Styled.Page>
+      {isCardDesignModalOpen && (
+        <CardPickModal onClickFunc={toggleCardDesignModal} />
+      )}
     </>
   );
 }
