@@ -37,6 +37,7 @@ const Styled = {
   Card: styled.div`
     box-shadow: 3px 3px 5px #00000040;
     border-radius: 5px;
+    cursor: pointer;
     padding: 19px;
 
     ${({ bgColor, cardStyle }) => css`
@@ -110,11 +111,25 @@ const Styled = {
   `,
 };
 
-function Card({ bgColor, className, name, number, size, title, validDate }) {
+function Card({
+  bgColor,
+  className,
+  name,
+  number,
+  onClickFunc,
+  size,
+  title,
+  validDate,
+}) {
   const cardStyle = getCardSize(size);
 
   return (
-    <Styled.Card className={className} bgColor={bgColor} cardStyle={cardStyle}>
+    <Styled.Card
+      className={className}
+      bgColor={bgColor}
+      cardStyle={cardStyle}
+      onClick={onClickFunc}
+    >
       <Styled.Title cardStyle={cardStyle}>{title}</Styled.Title>
       <Styled.Magnet cardStyle={cardStyle} />
       <div>
