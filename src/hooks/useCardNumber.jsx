@@ -64,6 +64,7 @@ export default function useCardNumber(initialValue) {
 
   return {
     cardNumber,
+    setCardNumber,
     handleCardNumber,
     showCardNumberValidation,
   };

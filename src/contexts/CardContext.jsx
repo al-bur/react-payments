@@ -4,6 +4,11 @@ import { useCardNumber, useCardOwnerName, useValidDate } from 'hooks';
 
 const CardContext = createContext();
 
+const initialCardKind = {
+  color: '#ADD8E6',
+  title: '공원 카드',
+};
+
 function cardKindReducer(state, action) {
   switch (action.type) {
     case 'SET_CARD_COLOR':
@@ -16,20 +21,34 @@ function cardKindReducer(state, action) {
         ...state,
         title: action.title,
       };
+    case 'RESET':
+      return initialCardKind;
   }
 }
 
 function CardContextProvider({ children }) {
-  const { cardNumber, handleCardNumber, showCardNumberValidation } =
-    useCardNumber('');
-  const { cardOwnerName, handleCardOwnerName, showCardOwnerNameValidation } =
-    useCardOwnerName('');
-  const { validDate, handleValidDate, showValidDateValidation } =
+  const {
+    cardNumber,
+    setCardNumber,
+    handleCardNumber,
+    showCardNumberValidation,
+  } = useCardNumber('');
+  const {
+    cardOwnerName,
+    setCardOwnerName,
+    handleCardOwnerName,
+    showCardOwnerNameValidation,
+  } = useCardOwnerName('');
+  const { validDate, setValidDate, handleValidDate, showValidDateValidation } =
     useValidDate('');
-  const [cardKind, setCardKind] = useReducer(cardKindReducer, {
-    color: '#ADD8E6',
-    title: '공원 카드',
-  });
+  const [cardKind, setCardKind] = useReducer(cardKindReducer, initialCardKind);
+
+  const resetCard = () => {
+    setCardNumber('');
+    setCardOwnerName('');
+    setValidDate('');
+    setCardKind({ type: 'RESET' });
+  };
 
   return (
     <CardContext.Provider
@@ -45,6 +64,7 @@ function CardContextProvider({ children }) {
         showValidDateValidation,
         cardKind,
         setCardKind,
+        resetCard,
       }}
     >
       {children}

@@ -9,7 +9,7 @@ import { addCardFetcher } from 'utils/fetcher';
 
 export default function useAddCard() {
   const navigateToHome = useNavigateTo(PATH.CARD_LIST);
-  const { cardNumber, cardOwnerName, validDate, cardKind } =
+  const { cardNumber, cardOwnerName, validDate, cardKind, resetCard } =
     useContext(CardContext);
 
   const handleAddCard = async (e) => {
@@ -31,6 +31,7 @@ export default function useAddCard() {
       }
 
       navigateToHome();
+      resetCard();
     } catch (err) {
       if (err.message === 'Failed to fetch') {
         alert(ERROR_MESSAGE.SERVICE_NOT_WORKING);
@@ -40,6 +41,7 @@ export default function useAddCard() {
       alert(err.message);
 
       navigateToHome();
+      resetCard();
     }
   };
 

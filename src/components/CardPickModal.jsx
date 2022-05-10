@@ -37,6 +37,7 @@ const cardPresets = [
   },
 ];
 
+// TODO: 매개변수명 변경
 function CardPickModal({ setCardKind, toggleCardPickModal }) {
   return (
     <>

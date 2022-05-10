@@ -31,5 +31,5 @@ export default function useValidDate(initialValue) {
     }
   };
 
-  return { validDate, handleValidDate, showValidDateValidation };
+  return { validDate, setValidDate, handleValidDate, showValidDateValidation };
 }

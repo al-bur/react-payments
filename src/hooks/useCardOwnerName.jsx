@@ -18,5 +18,10 @@ export default function useCardOwnerName(initialValue) {
     }
   };
 
-  return { cardOwnerName, handleCardOwnerName, showCardOwnerNameValidation };
+  return {
+    cardOwnerName,
+    setCardOwnerName,
+    handleCardOwnerName,
+    showCardOwnerNameValidation,
+  };
 }
