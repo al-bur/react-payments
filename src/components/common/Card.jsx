@@ -56,25 +56,11 @@ const getCardSize = (size) => {
   }
 };
 
-function Card({
-  bgColor,
-  name,
-  number,
-  onClickFunc,
-  size,
-  title,
-  validDate,
-  ...props
-}) {
+function Card({ bgColor, name, number, size, title, validDate, ...props }) {
   const cardStyle = getCardSize(size);
 
   return (
-    <Styled.Card
-      bgColor={bgColor}
-      cardStyle={cardStyle}
-      onClick={onClickFunc}
-      {...props}
-    >
+    <Styled.Card bgColor={bgColor} cardStyle={cardStyle} {...props}>
       <Styled.Title cardStyle={cardStyle}>{title}</Styled.Title>
       <Styled.Magnet cardStyle={cardStyle} />
       <div>

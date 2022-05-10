@@ -23,7 +23,6 @@ function Button({
   margin,
   shape,
   size,
-  onClickFunc,
   ...props
 }) {
   const buttonStyle = getButtonSize(size);
@@ -36,7 +35,6 @@ function Button({
       fontWeight={fontWeight}
       margin={margin}
       shape={shape}
-      onClick={onClickFunc}
       {...props}
     >
       {children}
@@ -63,7 +61,6 @@ Button.propTypes = {
   margin: PropTypes.object,
   shape: PropTypes.string,
   size: PropTypes.string,
-  onClickFunc: PropTypes.func,
 };
 
 const Styled = {

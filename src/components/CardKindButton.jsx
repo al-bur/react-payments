@@ -1,20 +1,22 @@
+import { useContext } from 'react';
+
 import { Button } from 'components';
+
+import { CardContext } from 'contexts/CardContext';
 
 import styled from 'styled-components';
 
-function CardKindButton({ buttonBgColor, cardTitle, onClickFunc }) {
-  const setCardKind = () => {
-    onClickFunc({ type: 'SET_CARD_COLOR', color: buttonBgColor });
-    onClickFunc({ type: 'SET_CARD_TITLE', title: cardTitle });
+function CardKindButton({ buttonBgColor, cardTitle }) {
+  const { setCardKind } = useContext(CardContext);
+
+  const handleCardKind = () => {
+    setCardKind({ type: 'SET_CARD_COLOR', color: buttonBgColor });
+    setCardKind({ type: 'SET_CARD_TITLE', title: cardTitle });
   };
 
   return (
     <Styled.Root>
-      <Button
-        bgColor={buttonBgColor}
-        shape="circle"
-        onClickFunc={setCardKind}
-      />
+      <Button bgColor={buttonBgColor} shape="circle" onClick={handleCardKind} />
       <Styled.CardTitle>{cardTitle}</Styled.CardTitle>
     </Styled.Root>
   );

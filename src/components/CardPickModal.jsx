@@ -38,19 +38,16 @@ const cardPresets = [
 ];
 
 // TODO: 매개변수명 변경
-function CardPickModal({ setCardKind, toggleCardPickModal }) {
+function CardPickModal({ toggleCardPickModal }) {
   return (
     <>
       <Styled.Modal>
-        <Styled.CloseButton onClickFunc={toggleCardPickModal}>
-          X
-        </Styled.CloseButton>
+        <Styled.CloseButton onClick={toggleCardPickModal}>X</Styled.CloseButton>
         {cardPresets.map(({ color, title }) => (
           <CardKindButton
             key={`${color}-${title}`}
             buttonBgColor={color}
             cardTitle={title}
-            onClickFunc={setCardKind}
           />
         ))}
       </Styled.Modal>

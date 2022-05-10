@@ -19,7 +19,7 @@ import getMaskedNumbers from 'utils/maskNumbers';
 import styled from 'styled-components';
 
 function AddCard() {
-  const { cardNumber, cardOwnerName, validDate, cardKind, setCardKind } =
+  const { cardNumber, cardOwnerName, validDate, cardKind } =
     useContext(CardContext);
   const [isCardPickModal, toggleCardPickModal] = useReducer(
     (visible) => !visible,
@@ -40,17 +40,14 @@ function AddCard() {
         size="medium"
         name={cardOwnerName}
         number={getMaskedNumbers(cardNumber, '')}
-        onClickFunc={toggleCardPickModal}
+        onClick={toggleCardPickModal}
         title={cardKind.title}
         validDate={validDate}
       />
       <CardForm />
       {isCardPickModal && (
         <ModalPortal>
-          <CardPickModal
-            setCardKind={setCardKind}
-            toggleCardPickModal={toggleCardPickModal}
-          />
+          <CardPickModal toggleCardPickModal={toggleCardPickModal} />
         </ModalPortal>
       )}
     </Styled.Root>
