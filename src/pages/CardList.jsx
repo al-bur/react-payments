@@ -2,7 +2,7 @@ import { Card, EmptyCard, Header, ModalPortal } from 'components';
 
 import { useGetCardList } from 'hooks';
 
-import Loading from 'assets/loading.png';
+import { ReactComponent as Spinner } from 'assets/spinner.svg';
 import getMaskedNumbers from 'utils/maskNumbers';
 
 import styled from 'styled-components';
@@ -16,7 +16,7 @@ function CardList() {
       {isLoading ? (
         <ModalPortal>
           <Styled.SpinnerContainer>
-            <Styled.Spinner src={Loading} />
+            <Styled.Spinner />
           </Styled.SpinnerContainer>
         </ModalPortal>
       ) : (
@@ -71,9 +71,8 @@ const Styled = {
     width: 400px;
   `,
 
-  Spinner: styled.img`
+  Spinner: styled(Spinner)`
     animation: spin 2500ms infinite linear;
-    width: 50px;
 
     @keyframes spin {
       100% {
