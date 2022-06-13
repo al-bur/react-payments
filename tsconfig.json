@@ -6,7 +6,8 @@
     "allowJs": true,
     "jsx": "react-jsx",
     "outDir": "build",
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "esModuleInterop": true
   },
   "include": ["src", "custom.d.ts"],
   "exclude": ["build", "node_modules"]
