@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 
-function Header({ children, title, ...props }) {
+interface Props {
+  children: React.ReactNode;
+  title: string;
+  props?: any;
+}
+
+function Header({ children, title, ...props }: Props) {
   return (
     <Styled.Root {...props}>
       {children}

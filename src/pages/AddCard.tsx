@@ -40,7 +40,7 @@ function AddCard() {
         size="medium"
         name={cardOwnerName}
         number={getMaskedNumbers(cardNumber, '')}
-        onClickFunc={toggleCardPickModal}
+        onClick={toggleCardPickModal}
         title={cardKind.title}
         validDate={validDate}
       />

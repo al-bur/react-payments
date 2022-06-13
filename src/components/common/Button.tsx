@@ -1,9 +1,27 @@
 import { memo } from 'react';
-import PropTypes from 'prop-types';
 
 import styled, { css } from 'styled-components';
 
-const getButtonSize = (size) => {
+type Size = 'small' | 'medium' | 'large';
+
+interface ButtonSize {
+  height: string;
+  fontSize: string;
+}
+
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  bgColor?: string;
+  border?: string;
+  color?: string;
+  fontWeight?: string;
+  margin?: { t?: string; b?: string; l?: string; r?: string };
+  shape?: string;
+  size?: Size;
+}
+
+type StyleProps = Omit<Props, 'size'> & { buttonStyle: ButtonSize };
+
+const getButtonSize = (size: Size): ButtonSize => {
   switch (size) {
     case 'small':
       return { height: '25px', fontSize: '14px' };
@@ -23,10 +41,11 @@ function Button({
   margin,
   shape,
   size,
-  onClickFunc,
+  onClick,
   ...props
-}) {
+}: Props) {
   const buttonStyle = getButtonSize(size);
+
   return (
     <Styled.Button
       bgColor={bgColor}
@@ -36,7 +55,7 @@ function Button({
       fontWeight={fontWeight}
       margin={margin}
       shape={shape}
-      onClick={onClickFunc}
+      onClick={onClick}
       {...props}
     >
       {children}
@@ -54,18 +73,6 @@ Button.defaultProps = {
   type: 'button',
 };
 
-Button.propTypes = {
-  bgColor: PropTypes.string,
-  border: PropTypes.string,
-  color: PropTypes.string,
-  content: PropTypes.node,
-  fontWeight: PropTypes.string,
-  margin: PropTypes.object,
-  shape: PropTypes.string,
-  size: PropTypes.string,
-  onClickFunc: PropTypes.func,
-};
-
 const Styled = {
   Button: styled.button`
     cursor: pointer;
@@ -78,7 +85,7 @@ const Styled = {
       buttonStyle,
       fontWeight,
       margin,
-    }) => css`
+    }: StyleProps) => css`
       background: ${bgColor};
       border: ${border};
       border-radius: ${shape === 'circle' && '50%'};
