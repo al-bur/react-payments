@@ -1,8 +1,19 @@
 import { Button } from 'components';
+import React from 'react';
 
 import styled from 'styled-components';
 
-function CardKindButton({ buttonBgColor, cardTitle, onClickFunc }) {
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  buttonBgColor: string;
+  cardTitle: string;
+  onClickFunc: (option: {
+    type: string;
+    color?: string;
+    title?: string;
+  }) => void;
+}
+
+function CardKindButton({ buttonBgColor, cardTitle, onClickFunc }: Props) {
   const setCardKind = () => {
     onClickFunc({ type: 'SET_CARD_COLOR', color: buttonBgColor });
     onClickFunc({ type: 'SET_CARD_TITLE', title: cardTitle });
@@ -10,11 +21,7 @@ function CardKindButton({ buttonBgColor, cardTitle, onClickFunc }) {
 
   return (
     <Styled.Root>
-      <Button
-        bgColor={buttonBgColor}
-        shape="circle"
-        onClickFunc={setCardKind}
-      />
+      <Button bgColor={buttonBgColor} shape="circle" onClick={setCardKind} />
       <Styled.CardTitle>{cardTitle}</Styled.CardTitle>
     </Styled.Root>
   );

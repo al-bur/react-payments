@@ -1,4 +1,5 @@
 import { Button, CardKindButton } from 'components';
+import React from 'react';
 
 import styled from 'styled-components';
 
@@ -37,23 +38,28 @@ const cardPresets = [
   },
 ];
 
-function CardPickModal({ setCardKind, toggleCardPickModal }) {
+interface Props {
+  onClickKindButton: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onClickClose: (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLDivElement>
+  ) => void;
+}
+
+function CardPickModal({ onClickKindButton, onClickClose }: Props) {
   return (
     <>
       <Styled.Modal>
-        <Styled.CloseButton onClickFunc={toggleCardPickModal}>
-          X
-        </Styled.CloseButton>
+        <Styled.CloseButton onClick={onClickClose}>X</Styled.CloseButton>
         {cardPresets.map(({ color, title }) => (
           <CardKindButton
             key={`${color}-${title}`}
             buttonBgColor={color}
             cardTitle={title}
-            onClickFunc={setCardKind}
+            onClickFunc={onClickKindButton}
           />
         ))}
       </Styled.Modal>
-      <Styled.Dimmed onClick={toggleCardPickModal} />
+      <Styled.Dimmed onClick={onClickClose} />
     </>
   );
 }

@@ -13,7 +13,7 @@ import {
 import { CardContext } from 'contexts/CardContext';
 
 import { ReactComponent as Arrow } from 'assets/arrow.svg';
-import { PATH } from 'constants';
+import { PATH } from 'constants/index';
 import getMaskedNumbers from 'utils/maskNumbers';
 
 import styled from 'styled-components';
@@ -37,7 +37,6 @@ function AddCard() {
       </Header>
       <Styled.Card
         bgColor={cardKind.color}
-        size="medium"
         name={cardOwnerName}
         number={getMaskedNumbers(cardNumber, '')}
         onClick={toggleCardPickModal}
@@ -48,8 +47,8 @@ function AddCard() {
       {isCardPickModal && (
         <ModalPortal>
           <CardPickModal
-            setCardKind={setCardKind}
-            toggleCardPickModal={toggleCardPickModal}
+            onClickKindButton={setCardKind}
+            onClickClose={toggleCardPickModal}
           />
         </ModalPortal>
       )}

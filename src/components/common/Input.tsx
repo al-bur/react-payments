@@ -1,18 +1,24 @@
 import { memo } from 'react';
-import PropTypes from 'prop-types';
 
 import styled, { css } from 'styled-components';
+
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+  description?: string;
+  textAlign?: string;
+  width?: string;
+  margin?: { t?: string; b?: string; l?: string; r?: string };
+}
 
 function Input({
   description,
   margin,
   placeholder,
-  textAlign,
   type,
   value,
-  width,
+  textAlign = 'center',
+  width = '343px',
   ...props
-}) {
+}: Props) {
   return (
     <>
       {description && <Styled.Label>{description}</Styled.Label>}
@@ -20,7 +26,7 @@ function Input({
         margin={margin}
         placeholder={placeholder}
         textAlign={textAlign}
-        type={type}
+        type={type || 'text'}
         value={value}
         width={width}
         {...props}
@@ -28,22 +34,6 @@ function Input({
     </>
   );
 }
-
-Input.defaultProps = {
-  textAlign: 'center',
-  type: 'text',
-  width: '343px',
-};
-
-Input.propTypes = {
-  description: PropTypes.string,
-  placeholder: PropTypes.string,
-  textAlign: PropTypes.string,
-  type: PropTypes.string,
-  value: PropTypes.string,
-  width: PropTypes.string,
-  onChangeFunc: PropTypes.func,
-};
 
 const Styled = {
   Input: styled.input`
@@ -58,7 +48,7 @@ const Styled = {
       color: #737373;
     }
 
-    ${({ margin, textAlign, width }) => css`
+    ${({ margin, textAlign, width }: Props) => css`
       margin: ${margin?.t || '0'} ${margin?.r || '0'} ${margin?.b || '0'}
         ${margin?.l || '0'};
       text-align: ${textAlign};

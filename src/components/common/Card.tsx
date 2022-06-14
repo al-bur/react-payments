@@ -1,9 +1,43 @@
 import { memo } from 'react';
-import PropTypes from 'prop-types';
 
 import styled, { css } from 'styled-components';
 
-const getCardSize = (size) => {
+type Size = 'medium' | 'large';
+
+interface CardSize {
+  card: {
+    height: string;
+    padding: string;
+    width: string;
+  };
+  title: {
+    marginBottom: string;
+    size: string;
+  };
+  magnet: {
+    height: string;
+    marginBottom: string;
+    width: string;
+  };
+  numberSet: {
+    marginBottom: string;
+  };
+  detail: {
+    size: string;
+    height: string;
+  };
+}
+
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
+  name?: string;
+  bgColor?: string;
+  number?: string;
+  size?: Size;
+  title?: string;
+  validDate?: string;
+}
+
+const getCardSize = (size: Size): CardSize => {
   switch (size) {
     case 'medium':
       return {
@@ -60,19 +94,19 @@ function Card({
   bgColor,
   name,
   number,
-  onClickFunc,
-  size,
+  onClick,
+  size = 'medium',
   title,
   validDate,
   ...props
-}) {
+}: Props) {
   const cardStyle = getCardSize(size);
 
   return (
     <Styled.Card
       bgColor={bgColor}
       cardStyle={cardStyle}
-      onClick={onClickFunc}
+      onClick={onClick}
       {...props}
     >
       <Styled.Title cardStyle={cardStyle}>{title}</Styled.Title>
@@ -90,26 +124,15 @@ function Card({
   );
 }
 
-Card.defaultProps = {
-  size: 'medium',
-};
-
-Card.propTypes = {
-  bgColor: PropTypes.string,
-  className: PropTypes.string,
-  name: PropTypes.string,
-  number: PropTypes.string,
-  size: PropTypes.string,
-  title: PropTypes.string,
-  validDate: PropTypes.string,
-};
-
 const Styled = {
   Card: styled.div`
     box-shadow: 3px 3px 5px #00000040;
     border-radius: 5px;
 
-    ${({ bgColor, cardStyle }) => css`
+    ${({
+      bgColor,
+      cardStyle,
+    }: Pick<Props, 'bgColor'> & { cardStyle: CardSize }) => css`
       background: ${bgColor};
       height: ${cardStyle.card.height};
       padding: ${cardStyle.card.padding};
@@ -120,7 +143,7 @@ const Styled = {
   Title: styled.div`
     color: #383838;
 
-    ${({ cardStyle }) => css`
+    ${({ cardStyle }: { cardStyle: CardSize }) => css`
       font-size: ${cardStyle.title.size};
       height: ${cardStyle.title.size};
       margin-bottom: ${cardStyle.title.marginBottom};
@@ -131,7 +154,7 @@ const Styled = {
     background: #cbba64;
     border-radius: 4px;
 
-    ${({ cardStyle }) => css`
+    ${({ cardStyle }: { cardStyle: CardSize }) => css`
       height: ${cardStyle.magnet.height};
       margin-bottom: ${cardStyle.magnet.marginBottom};
       width: ${cardStyle.magnet.width};
@@ -143,7 +166,7 @@ const Styled = {
     font-weight: bold;
     text-align: center;
 
-    ${({ cardStyle }) => css`
+    ${({ cardStyle }: { cardStyle: CardSize }) => css`
       font-size: ${cardStyle.detail.size};
       height: ${cardStyle.detail.height};
       margin-bottom: ${cardStyle.numberSet.marginBottom};
@@ -163,7 +186,7 @@ const Styled = {
       display: none;
     }
 
-    ${({ cardStyle }) => css`
+    ${({ cardStyle }: { cardStyle: CardSize }) => css`
       font-size: ${cardStyle.detail.size};
       height: ${cardStyle.detail.height};
     `}
@@ -174,7 +197,7 @@ const Styled = {
     float: right;
     font-weight: bold;
 
-    ${({ cardStyle }) => css`
+    ${({ cardStyle }: { cardStyle: CardSize }) => css`
       font-size: ${cardStyle.detail.size};
       height: ${cardStyle.detail.height};
     `}

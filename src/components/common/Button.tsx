@@ -17,6 +17,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   margin?: { t?: string; b?: string; l?: string; r?: string };
   shape?: string;
   size?: Size;
+  onClickFunc?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 type StyleProps = Omit<Props, 'size'> & { buttonStyle: ButtonSize };
@@ -41,7 +42,7 @@ function Button({
   margin,
   shape,
   size,
-  onClick,
+  onClickFunc,
   ...props
 }: Props) {
   const buttonStyle = getButtonSize(size);
@@ -55,7 +56,7 @@ function Button({
       fontWeight={fontWeight}
       margin={margin}
       shape={shape}
-      onClick={onClick}
+      onClick={onClickFunc}
       {...props}
     >
       {children}
